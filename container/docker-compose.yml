@@ -3,32 +3,54 @@ name: lab6
 services:
   mongodb:
     # TODO: 補上 MongoDB build context / image 設定。
+    build:
+      context: mongodb
     container_name: lab6-mongodb
     # TODO: 視需要補上 environment、volume、healthcheck。
+    volumes:
+      - mongodb-data:/data/db
     networks:
       lab6-net:
         ipv4_address: 10.53.1.4
 
   core:
     # TODO: 補上 Open5GS core build context / image 設定。
+    build:
+      context: core
     container_name: lab6-core
     # TODO: 視需要補上 capability、device、depends_on、tmpfs 等設定。
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - mongodb
     networks:
       lab6-net:
         ipv4_address: 10.53.1.2
 
   gnb:
     # TODO: 補上 srsRAN gNB build context / image 設定。
+    build:
+      context: gnb
     container_name: lab6-gnb
     # TODO: 視需要補上 depends_on。
+    depends_on:
+      - core
     networks:
       lab6-net:
         ipv4_address: 10.53.1.3
 
   ue:
     # TODO: 補上 UE build context / image 設定。
+    build:
+      context: ue
     container_name: lab6-ue
     # TODO: 視需要補上 capability、device、depends_on 等設定。
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - gnb
     networks:
       lab6-net:
         ipv4_address: 10.53.1.5

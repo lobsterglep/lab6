@@ -1,3 +1,23 @@
 # TODO: 填入 srsRAN gNB 設定。
 # 提示: 需要設定 AMF address、gNB bind address、PLMN、TAC、slice support、cell、ZMQ radio 等資訊。
 # 提示: gNB 的 PLMN/TAC/slice 必須和 Open5GS core 與 subscriber profile 一致。
+amf:
+  addr: 10.53.1.2
+  bind_addr: 10.53.1.3
+
+ru_sdr:
+  device_driver: zmq
+  device_args: tx_port=tcp://*:2000,rx_port=tcp://lab6-ue:2001,base_srate=11.52e6
+
+cell_cfg:
+  dl_arfcn: 368500
+  band: 3
+  channel_bandwidth_MHz: 10
+  common_scs: 15
+  plmn: "00101"
+  tac: 7
+  pci: 1
+
+log:
+  filename: stdout
+  all_level: info

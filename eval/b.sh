@@ -13,11 +13,13 @@ docker exec lab6-gnb gnb --version | grep 'version'
 echo
 
 echo "[2] srsRAN gNB startup"
-docker logs lab6-gnb 2>&1 | grep 'gNB started'
+# 把 gNB 改成 gNodeB
+docker logs lab6-gnb 2>&1 | grep 'gNodeB started'
 echo
 
 echo "[3] srsRAN gNB connection to Open5GS AMF"
-docker logs lab6-gnb 2>&1 | grep 'Connected to AMF'
+# 把 Connected 改成 TNL connection
+docker logs lab6-gnb 2>&1 | grep 'TNL connection to AMF'
 echo
 
 echo "[4] Open5GS AMF gNB connection"
